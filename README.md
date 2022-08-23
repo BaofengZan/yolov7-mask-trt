@@ -1,45 +1,45 @@
-# Official YOLOv7
+# yolov7-mask Trt
 
-Implementation of paper - [YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors](https://arxiv.org/abs/2207.02696)
+1. 目前仅将onnx导出，然后后处理仍然使用的detectron中的函数
+   
+   1. 进阶：将RoiAlign作为插件集成到onnx/trt中
 
-Instance segmentaion code is partially based on [BlendMask](https://arxiv.org/abs/2001.00309).
+2. 使用流程
+   
+   1. 先安装环境
+      
+      ```
+      torch                   1.10.2+cu102
+      torchvision             0.11.3+cu102
+      vs2019
+      ```
+      
+      - 安装detectron
+        - windows
+          - [Windows下安装detectron2(免修改版本）_微雨曳荷的博客-CSDN博客_detectron2 windows](https://blog.csdn.net/weixin_44226805/article/details/126017177)
+        - linux
+          - 安装官方命令即可。
 
-## Testing
-
-[yolov7-mask.pt](https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-mask.pt)
-
-[[scripts]](./tools/instance.ipynb)
-
-<div align="center">
-    <a href="./">
-        <img src="./figure/horses_instance.png" width="79%"/>
-    </a>
-</div>
-
-## Citation
+3. 导出onnx
 
 ```
-@article{wang2022yolov7,
-  title={{YOLOv7}: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors},
-  author={Wang, Chien-Yao and Bochkovskiy, Alexey and Liao, Hong-Yuan Mark},
-  journal={arXiv preprint arXiv:2207.02696},
-  year={2022}
-}
+运行 mask_demo.py 导出onnx。
 ```
 
-## Acknowledgements
+4. 生成engine
+   
+   ```
+   trtexec --onnx=./mask.onnx --saveEngine=./mask_fp32.engine --workspace=1000
+   ```
 
-<details><summary> <b>Expand</b> </summary>
+5. 运行
 
-* [https://github.com/AlexeyAB/darknet](https://github.com/AlexeyAB/darknet)
-* [https://github.com/WongKinYiu/yolor](https://github.com/WongKinYiu/yolor)
-* [https://github.com/WongKinYiu/PyTorch_YOLOv4](https://github.com/WongKinYiu/PyTorch_YOLOv4)
-* [https://github.com/WongKinYiu/ScaledYOLOv4](https://github.com/WongKinYiu/ScaledYOLOv4)
-* [https://github.com/Megvii-BaseDetection/YOLOX](https://github.com/Megvii-BaseDetection/YOLOX)
-* [https://github.com/ultralytics/yolov3](https://github.com/ultralytics/yolov3)
-* [https://github.com/ultralytics/yolov5](https://github.com/ultralytics/yolov5)
-* [https://github.com/DingXiaoH/RepVGG](https://github.com/DingXiaoH/RepVGG)
-* [https://github.com/JUGGHM/OREPA_CVPR2022](https://github.com/JUGGHM/OREPA_CVPR2022)
-* [https://github.com/TexasInstruments/edgeai-yolov5/tree/yolo-pose](https://github.com/TexasInstruments/edgeai-yolov5/tree/yolo-pose)
+```
+执行trt_py.py脚本
+```
+
+# 引用
+
+[官方yolov7-mask repo](https://github.com/WongKinYiu/yolov7/tree/mask)
 
 </details>
