@@ -2,6 +2,8 @@
 YOLOV7 instance segmentation network.
 This is a modified version of YOLOv7 mask based on
 https://github.com/WongKinYiu/yolov7/blob/mask/tools/instance.ipynb.
+代码来源：
+https://github.com/WongKinYiu/yolov7/pull/567
 """
 from operator import mod
 from re import T
